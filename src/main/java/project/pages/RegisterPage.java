@@ -37,7 +37,13 @@ public class RegisterPage {
         wait.until(ExpectedConditions.elementToBeClickable(signUpButton)).click();
     }
 
+    public SignInPage clickAlreadyHaveAnAccountLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(goToLoginLink)).click();
+        return new SignInPage(driver, wait);
+    }
 
-
+    public boolean isSignUpButtonVisible() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(goToLoginLink)).isDisplayed();
+    }
 
 }

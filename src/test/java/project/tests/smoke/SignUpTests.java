@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import project.baseTest.BaseTest;
 import project.pages.RegisterPage;
+import project.pages.SignInPage;
 
 public class SignUpTests extends BaseTest {
 
@@ -48,5 +49,12 @@ public class SignUpTests extends BaseTest {
         Assertions.assertFalse(homePage.isSettingsButtonDisplayed());
     }
 
+    @Test
+    @Tag("known-issue")
+    void testGoToSignInPageLink() {
+        RegisterPage regPage = homePage.clickRegister();
+        regPage.clickAlreadyHaveAnAccountLink();
 
+        Assertions.assertFalse(regPage.isSignUpButtonVisible());
+    }
 }
