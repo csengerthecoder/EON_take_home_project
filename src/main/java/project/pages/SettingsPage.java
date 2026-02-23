@@ -2,6 +2,7 @@ package project.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SettingsPage {
@@ -21,5 +22,9 @@ public class SettingsPage {
     public SettingsPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
+    }
+
+    public void logout() {
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
     }
 }
