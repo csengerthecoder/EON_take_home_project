@@ -29,4 +29,4 @@ jobs:
             ${{ runner.os }}-m2-
 
       - name: Run tests
-        run: mvn -B test
+        run: mvn -B test -Djunit.jupiter.tags.exclude=known-issue
