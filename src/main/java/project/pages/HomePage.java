@@ -16,7 +16,7 @@ public class HomePage {
 
     private final By yourFeedButton = By.linkText("Your Feed");
     private final By globalFeedButton = By.linkText("Global Feed");
-    private final By settingsButton = By.linkText("Settings");
+    private final By settingsButton = By.cssSelector("a[href='/settings']");
     private final By newArticleButton = By.linkText("New Post");
     private final By userProfileLink = By.cssSelector("a.nav-link[href^='/@']");
     private final By authorNames = By.className("author");
