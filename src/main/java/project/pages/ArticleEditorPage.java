@@ -1,7 +1,9 @@
 package project.pages;
 
+import org.apache.commons.io.StreamIterator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArticleEditorPage {
@@ -21,4 +23,30 @@ public class ArticleEditorPage {
         this.driver = driver;
         this.wait = wait;
     }
+
+    private void fillOutInput(By locator, String data) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(data);
+    }
+
+    public void fillOutArticleForm(String title, String description, String bodyText, String tags) {
+        fillOutInput(titleInput, title);
+        fillOutInput(descriptionInput, description);
+        fillOutInput(bodyTextarea, bodyText);
+        fillOutInput(tagsInput, tags);
+    }
+    public ArticlePage clickPublishButton() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(publishButton)).click();
+        return new ArticlePage(driver, wait);
+    }
+
+    public boolean isAllInputFieldValueCleared() {
+        String title = wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput)).getAttribute("value");
+        String description = wait.until(ExpectedConditions.visibilityOfElementLocated(descriptionInput)).getAttribute("value");
+        String body = wait.until(ExpectedConditions.visibilityOfElementLocated(bodyTextarea)).getAttribute("value");
+        String tags = wait.until(ExpectedConditions.visibilityOfElementLocated(tagsInput)).getAttribute("value");
+
+        return title.isEmpty() && description.isEmpty() && body.isEmpty() && tags.isEmpty();
+    }
+
+
 }

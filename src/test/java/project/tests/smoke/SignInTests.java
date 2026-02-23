@@ -42,5 +42,4 @@ public class SignInTests extends BaseTest {
 
         Assertions.assertTrue(regPage.isSignUpButtonVisible());
     }
-
 }
