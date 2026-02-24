@@ -25,7 +25,9 @@ public class ArticleEditorPage {
     }
 
     private void fillOutInput(By locator, String data) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(data);
+        var element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.clear();
+        element.sendKeys(data);
     }
 
     public void fillOutArticleForm(String title, String description, String bodyText, String tags) {
