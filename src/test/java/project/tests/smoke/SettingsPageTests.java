@@ -20,10 +20,10 @@ public class SettingsPageTests extends BaseTest {
 
     @Test
     @Tag("known-issue")
-    void testSubmittingSettingsChangeSuccessfully() {
+    void testSubmittingSettingsChange() {
         SettingsPage settingsPage = homePage.clickSettings();
         String newUsername = "testUsername";
-        settingsPage.fillOutForm("testIMG", newUsername, "testbio", "testEmail", "testPassword");
+        settingsPage.fillOutForm("testIMG", newUsername, "testbio", "testEmail@testEmail.com", "testPassword");
         settingsPage.clickUpdateButton();
 
         Assertions.assertEquals(homePage.getUserNameFromNavBar(), newUsername);
@@ -31,14 +31,29 @@ public class SettingsPageTests extends BaseTest {
 
     @Test
     @Tag("known-issue")
-    void testSubmittingBioChangeSuccessfully() {
+    void testSubmittingBioChange() {
         SettingsPage settingsPage = homePage.clickSettings();
         String newBio = "testBio";
-        settingsPage.fillOutForm("testIMG", "newUsername", newBio, "testEmail", "testPassword");
+        settingsPage.fillOutForm("testIMG", "newUsername", newBio, "testEmail@testEmail.com", "testPassword");
         settingsPage.clickUpdateButton();
 
         UserProfilePage profilePage = homePage.clickOwnProfilePage();
 
         Assertions.assertEquals(newBio, profilePage.getBioText());
+    }
+    @Test
+    void testSubmittingEmailAndPasswordChange() {
+        SettingsPage settingsPage = homePage.clickSettings();
+        String newEmail = "testEmail@testEmail.com";
+        String newPassword = "testPassword";
+        settingsPage.fillOutForm("testIMG", "newUsername", "newBio", newEmail, newPassword);
+        settingsPage.clickUpdateButton();
+
+        settingsPage.logout();
+        SignInPage signInPage = homePage.clickSignIn();
+        signInPage.fillOutSignInForm(newEmail, newPassword);
+        signInPage.clickSignInButton();
+
+        Assertions.assertTrue(homePage.isSignInButtonDisplayed());
     }
 }

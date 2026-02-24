@@ -24,8 +24,9 @@ public class SettingsPage {
         this.wait = wait;
     }
 
-    public void logout() {
+    public HomePage logout() {
         wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
+        return new HomePage(driver, wait);
     }
 
     private void clearAndType(By locator, String text) {
@@ -45,7 +46,4 @@ public class SettingsPage {
     public void clickUpdateButton() {
         wait.until(ExpectedConditions.elementToBeClickable(updateSettingsButton)).click();
     }
-
-
-
 }

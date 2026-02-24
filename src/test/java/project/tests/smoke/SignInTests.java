@@ -26,13 +26,12 @@ public class SignInTests extends BaseTest {
             "'', asd123",
             "'', ''"
     })
-    @Tag("known-issue")
     void testSignInWithMissingCredentials(String email, String password) {
         SignInPage signInPage = homePage.clickSignIn();
         signInPage.fillOutSignInForm(email, password);
         signInPage.clickSignInButton();
 
-        Assertions.assertFalse(homePage.isSettingsButtonDisplayed());
+        Assertions.assertTrue(homePage.isSignInButtonDisplayed());
     }
 
     @Test
