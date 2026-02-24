@@ -21,6 +21,7 @@ public class HomePage {
 
     private final By settingsButton = By.cssSelector("a[href='/settings']");
     private final By newArticleButton = By.linkText("New Post");
+    private final By userProfileButton = By.cssSelector("a.nav-link.active[aria-current='page']");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -46,6 +47,10 @@ public class HomePage {
     public ArticleEditorPage clickNewArticle() {
         click(newArticleButton);
         return new ArticleEditorPage(driver, wait);
+    }
+    public UserProfilePage clickOwnProfilePage() {
+        click(userProfileButton);
+        return new UserProfilePage(driver, wait);
     }
 
     public boolean isBannerDisplayed() {
