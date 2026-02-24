@@ -99,4 +99,7 @@ public class HomePage {
                 .anyMatch(t -> t.equalsIgnoreCase(tag)));
     }
 
+    public String getUserNameFromNavBar() {
+        return wait.until(ExpectedConditions.elementToBeClickable(userProfileButton)).getAttribute("value");
+    }
 }
