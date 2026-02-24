@@ -1,7 +1,11 @@
 package project.tests.smoke;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import project.baseTest.BaseTest;
+import project.pages.SettingsPage;
 import project.pages.SignInPage;
 
 public class SettingsPageTests extends BaseTest {
@@ -13,5 +17,14 @@ public class SettingsPageTests extends BaseTest {
         signInPage.clickSignInButton();
     }
 
+    @Test
+    @Tag("known-issue")
+    void testSubmittingSettingsChangeSuccessfully() {
+        SettingsPage settingsPage = homePage.clickSettings();
+        String testUsername = "testUsername";
+        settingsPage.fillOutForm("testIMG", testUsername, "testbio", "testEmail", "testPassword");
+        settingsPage.clickUpdateButton();
 
+        Assertions.assertEquals(homePage.getUserNameFromNavBar(), testUsername);
+    }
 }
