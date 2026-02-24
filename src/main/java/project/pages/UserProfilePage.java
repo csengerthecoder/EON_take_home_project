@@ -14,6 +14,7 @@ public class UserProfilePage {
     private final By myArticlesTab = By.xpath("//a[contains(@class,'nav-link') and normalize-space()='My Articles']");
     private final By favoritedArticlesTab = By.xpath("//a[contains(@class,'nav-link') and normalize-space()='Favorited Articles']");
     private final By articleTitle = By.cssSelector(".article-page h1");
+    private final By bioText = By.xpath("//img[contains(@class,'user-img')]/following-sibling::p");
 
     public UserProfilePage(WebDriver driver,  WebDriverWait wait) {
         this.driver = driver;
@@ -38,6 +39,9 @@ public class UserProfilePage {
         return new ArticlePage(driver, wait);
     }
 
+    public String getBioText() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(bioText)).getText();
+    }
 
 
 }

@@ -21,10 +21,22 @@ public class SettingsPageTests extends BaseTest {
     @Tag("known-issue")
     void testSubmittingSettingsChangeSuccessfully() {
         SettingsPage settingsPage = homePage.clickSettings();
-        String testUsername = "testUsername";
-        settingsPage.fillOutForm("testIMG", testUsername, "testbio", "testEmail", "testPassword");
+        String newUsername = "testUsername";
+        settingsPage.fillOutForm("testIMG", newUsername, "testbio", "testEmail", "testPassword");
         settingsPage.clickUpdateButton();
 
-        Assertions.assertEquals(homePage.getUserNameFromNavBar(), testUsername);
+        Assertions.assertEquals(homePage.getUserNameFromNavBar(), newUsername);
+    }
+
+    @Test
+    void testSubmittingBioChangeSuccessfully() {
+        SettingsPage settingsPage = homePage.clickSettings();
+        String newBio = "testBio";
+        settingsPage.fillOutForm("testIMG", "newUsername", newBio, "testEmail", "testPassword");
+        settingsPage.clickUpdateButton();
+
+
+
+        Assertions.assertEquals(homePage.getUserNameFromNavBar(), newBio);
     }
 }
