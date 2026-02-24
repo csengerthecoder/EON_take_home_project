@@ -48,5 +48,7 @@ public class ArticleEditorPage {
         return title.isEmpty() && description.isEmpty() && body.isEmpty() && tags.isEmpty();
     }
 
-
+    public String getTitleValue() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput)).getAttribute("value");
+    }
 }

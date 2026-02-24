@@ -10,18 +10,15 @@ public class HomePage {
     private final WebDriverWait wait;
 
     private final By bannerTitle = By.cssSelector(".banner h1");
-    private final By homeButton = By.linkText("Home");
     private final By signInButton = By.linkText("Sign in");
     private final By signUpButton = By.linkText("Sign up");
 
-    private final By yourFeedButton = By.linkText("Your Feed");
-    private final By globalFeedButton = By.linkText("Global Feed");
+    private final By globalFeedTab = By.xpath("//button[normalize-space()='Global Feed']");
+    private final By articlePreviews = By.cssSelector(".article-preview");
+    private final By previewAuthor = By.cssSelector(".article-preview .author");
+
     private final By settingsButton = By.cssSelector("a[href='/settings']");
     private final By newArticleButton = By.linkText("New Post");
-    private final By userProfileLink = By.cssSelector("a.nav-link[href^='/@']");
-    private final By authorNames = By.className("author");
-    private final By articlePreviewLinks = By.className("preview-link");
-    private final By favoriteButtons = By.cssSelector(".article-preview button.btn-outline-primary");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -57,6 +54,25 @@ public class HomePage {
     }
     public boolean isSignInButtonDisplayed() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(signInButton)).isDisplayed();
+    }
+
+    public void clickGlobalFeed() {
+        click(globalFeedTab);
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(articlePreviews));
+    }
+
+    public ArticlePage openFirstArticleNotBy(String myUsername) {
+        clickGlobalFeed();
+
+        var previews = driver.findElements(articlePreviews);
+        for (var preview : previews) {
+            String author = preview.findElement(previewAuthor).getText();
+            if (!author.equalsIgnoreCase(myUsername)) {
+                preview.findElement(By.cssSelector("a.preview-link")).click();
+                return new ArticlePage(driver, wait);
+            }
+        }
+        throw new RuntimeException("No non-user article found in Global Feed.");
     }
 
 }
