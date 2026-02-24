@@ -21,7 +21,7 @@ public class HomePage {
 
     private final By settingsButton = By.cssSelector("a[href='/settings']");
     private final By newArticleButton = By.linkText("New Post");
-    private final By userProfileButton = By.cssSelector("a.nav-link.active[aria-current='page']");
+    private final By userProfileButton = By.cssSelector("a.nav-link[href^='/@']");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -93,10 +93,10 @@ public class HomePage {
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(articlePreviews)).size();
     }
 
-    public boolean firstArticleHasTag(String tag) {
-        return wait.until(d -> d.findElements(previewTags).stream()
-                .map(e -> e.getText().trim())
-                .anyMatch(t -> t.equalsIgnoreCase(tag)));
+    public boolean firstArticleHasTag(String tagString) {
+        return wait.until(driver -> driver.findElements(previewTags).stream()
+                .map(element -> element.getText().trim())
+                .anyMatch(tag -> tag.equalsIgnoreCase(tagString)));
     }
 
     public String getUserNameFromNavBar() {

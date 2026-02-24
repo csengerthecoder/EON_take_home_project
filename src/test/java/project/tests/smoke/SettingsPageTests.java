@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import project.baseTest.BaseTest;
 import project.pages.SettingsPage;
 import project.pages.SignInPage;
+import project.pages.UserProfilePage;
 
 public class SettingsPageTests extends BaseTest {
 
@@ -29,14 +30,15 @@ public class SettingsPageTests extends BaseTest {
     }
 
     @Test
+    @Tag("known-issue")
     void testSubmittingBioChangeSuccessfully() {
         SettingsPage settingsPage = homePage.clickSettings();
         String newBio = "testBio";
         settingsPage.fillOutForm("testIMG", "newUsername", newBio, "testEmail", "testPassword");
         settingsPage.clickUpdateButton();
 
+        UserProfilePage profilePage = homePage.clickOwnProfilePage();
 
-
-        Assertions.assertEquals(homePage.getUserNameFromNavBar(), newBio);
+        Assertions.assertEquals(newBio, profilePage.getBioText());
     }
 }
