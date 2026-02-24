@@ -16,6 +16,8 @@ public class HomePage {
     private final By globalFeedTab = By.xpath("//button[normalize-space()='Global Feed']");
     private final By articlePreviews = By.cssSelector(".article-preview");
     private final By previewAuthor = By.cssSelector(".article-preview .author");
+    private final By popularTags = By.cssSelector(".sidebar .tag-list a.tag-pill");
+    private final By previewTags = By.cssSelector(".article-preview .tag-list .tag-pill");
 
     private final By settingsButton = By.cssSelector("a[href='/settings']");
     private final By newArticleButton = By.linkText("New Post");
@@ -73,6 +75,23 @@ public class HomePage {
             }
         }
         throw new RuntimeException("No non-user article found in Global Feed.");
+    }
+
+    public String clickFirstPopularTag() {
+        var tag = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(popularTags)).get(0);
+        String text = tag.getText().trim();
+        tag.click();
+        return text;
+    }
+
+    public int getArticleCount() {
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(articlePreviews)).size();
+    }
+
+    public boolean firstArticleHasTag(String tag) {
+        return wait.until(d -> d.findElements(previewTags).stream()
+                .map(e -> e.getText().trim())
+                .anyMatch(t -> t.equalsIgnoreCase(tag)));
     }
 
 }
