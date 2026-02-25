@@ -16,8 +16,6 @@ public class RegisterPage {
     private final By signUpButton = By.cssSelector(".auth-page button[type='submit']");
     private final By goToLoginLink = By.cssSelector(".auth-page a[href='/register']");
 
-    // !! BUG !! have an account doesnt load login (it links to register)
-
     public RegisterPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;

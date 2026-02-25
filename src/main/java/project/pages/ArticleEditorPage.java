@@ -16,9 +16,6 @@ public class ArticleEditorPage {
     private final By tagsInput = By.cssSelector("input[placeholder='Enter tags']");
     private final By publishButton = By.xpath("//button[contains(@class,'btn-primary') and contains(.,'Publish')]");
 
-    // !! BUG !! there's a tag-list element, but nothing comes up.
-    // !! BUG !! the placeholder keeps the data from the previously added article, even after refresh or logout-new login
-
     public ArticleEditorPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
