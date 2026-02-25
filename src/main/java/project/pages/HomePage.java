@@ -2,6 +2,7 @@ package project.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,6 +19,8 @@ public class HomePage {
     private final By previewAuthor = By.cssSelector(".article-preview .author");
     private final By popularTags = By.cssSelector(".sidebar .tag-list a.tag-pill");
     private final By previewTags = By.cssSelector(".article-preview .tag-list .tag-pill");
+    private final By previewTitles = By.cssSelector(".article-preview h1");
+    private final By favoriteButtons = By.cssSelector(".article-preview button.btn");
 
     private final By settingsButton = By.cssSelector("a[href='/settings']");
     private final By newArticleButton = By.linkText("New Post");
@@ -101,5 +104,16 @@ public class HomePage {
 
     public String getUserNameFromNavBar() {
         return wait.until(ExpectedConditions.elementToBeClickable(userProfileButton)).getAttribute("value");
+    }
+
+    public String getFirstPreviewTitle() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(previewTitles));
+        return driver.findElements(previewTitles).get(0).getText();
+    }
+
+    public void favoriteFirstArticle() {
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(articlePreviews));
+        WebElement button = driver.findElements(favoriteButtons).get(0);
+        button.click();
     }
 }
