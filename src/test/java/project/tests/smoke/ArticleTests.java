@@ -8,6 +8,7 @@ import project.baseTest.BaseTest;
 import project.pages.ArticleEditorPage;
 import project.pages.ArticlePage;
 import project.pages.SignInPage;
+import project.pages.UserProfilePage;
 
 public class ArticleTests extends BaseTest {
     private final String myUsername = "test-user-1";
@@ -73,6 +74,20 @@ public class ArticleTests extends BaseTest {
         article.toggleFollow();
         String followAfter = article.getFollowButtonText();
         Assertions.assertNotEquals(followBefore, followAfter);
+    }
+
+    @Test
+    @Tag("known-issue") //flaky. no usable locator for favorite tab
+    void testFavoriteArticleExistsInOwnFavoriteArticleTab() {
+        homePage.clickGlobalFeed();
+        String title = homePage.getFirstPreviewTitle();
+        System.out.println(title);
+        homePage.favoriteFirstArticle();
+        UserProfilePage profile = homePage.clickOwnProfilePage();
+        profile.openFavoritedArticles();
+        System.out.println(profile.getAllArticleTitles());
+
+        Assertions.assertTrue(profile.getAllArticleTitles().contains(title));
     }
 
     @Test
