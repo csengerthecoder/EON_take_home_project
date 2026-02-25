@@ -47,7 +47,7 @@ public class NewArticleTests extends BaseTest {
             "test, '', test, test",
             "'', test, test, test",
     })
-    @Tag("known-issue")
+    @Tag("known-issue") //should give an error for not being able to send request with missing body
     void testCreateNewArticleWithMissingCredentials(String title, String description, String bodyText, String tags) {
         ArticleEditorPage editorPage = homePage.clickNewArticle();
         editorPage.fillOutArticleForm(title, description, bodyText, tags);
@@ -57,7 +57,7 @@ public class NewArticleTests extends BaseTest {
     }
 
     @Test
-    @Tag("known-issue")
+    @Tag("known-issue") // refreshing or coming back after changing pages doesnt clear the placeholders
     void testInputFieldsClearedAfterSuccessfulCreation() {
         ArticleEditorPage editorPage = homePage.clickNewArticle();
         editorPage.fillOutArticleForm("title", "description", "bodyText", "tags");
