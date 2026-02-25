@@ -21,7 +21,7 @@ public class SignUpTests extends BaseTest {
     }
 
     @Test
-    @Tag("known-issue")
+    @Tag("known-issue") // can sign up with same email address
     void testDuplicateEmailSignUp() {
         RegisterPage registerPage = homePage.clickRegister();
         registerPage.fillOutSignUpForm("test1", "test@test.com", "asd123");
@@ -40,7 +40,7 @@ public class SignUpTests extends BaseTest {
             "'', '', asd123",
             "'', '', ''",
     })
-    @Tag("known-issue")
+    @Tag("known-issue") //lets you sign up with missing credentials
     void testMissingCredentialSignUps(String username, String email, String password) {
         RegisterPage registerPage = homePage.clickRegister();
         registerPage.fillOutSignUpForm(username, email, password);
@@ -50,7 +50,7 @@ public class SignUpTests extends BaseTest {
     }
 
     @Test
-    @Tag("known-issue")
+    @Tag("known-issue") //doesnt lend you on the sign in page
     void testGoToSignInPageLink() {
         RegisterPage regPage = homePage.clickRegister();
         regPage.clickAlreadyHaveAnAccountLink();
